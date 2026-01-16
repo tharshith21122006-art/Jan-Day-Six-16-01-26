@@ -1,0 +1,6 @@
+def rotate(matrix):
+    n=len(matrix)
+    matrix[:] = [list(x)[::-1] for x in zip(*matrix)]
+    return matrix
+
+print(rotate([[1,2,3],[4,5,6],[7,8,9]]))
