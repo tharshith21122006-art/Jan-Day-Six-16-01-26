@@ -1,0 +1,20 @@
+from collections import defaultdict,deque
+
+def serialize_graph(edges):
+    return {u:list(v) for u,v in edges.items()}
+
+def bfs(graph, start):
+    visited=set()
+    q=deque([start])
+    res=[]
+    while q:
+        u=q.popleft()
+        if u not in visited:
+            visited.add(u)
+            res.append(u)
+            q.extend(graph.get(u,[]))
+    return res
+
+edges={0:[1,2],1:[2],2:[0],3:[2]}
+graph=serialize_graph(edges)
+print(bfs(graph,0))
