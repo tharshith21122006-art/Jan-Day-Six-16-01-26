@@ -1,0 +1,24 @@
+class TrieNode:
+    def __init__(self): self.children={}
+def find_max_xor(nums):
+    root=TrieNode(); L=max(nums).bit_length()
+    for num in nums:
+        node=root
+        for i in range(L-1,-1,-1):
+            b=(num>>i)&1
+            if b not in node.children: node.children[b]=TrieNode()
+            node=node.children[b]
+    max_xor=0
+    for num in nums:
+        node=root; cur=0
+        for i in range(L-1,-1,-1):
+            b=(num>>i)&1; toggled=1-b
+            if toggled in node.children:
+                cur|=(1<<i)
+                node=node.children[toggled]
+            else:
+                node=node.children.get(b)
+        max_xor=max(max_xor,cur)
+    return max_xor
+
+print(find_max_xor([3,10,5,25,2,8]))
